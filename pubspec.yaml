@@ -1,0 +1,16 @@
+name: jam_flutter_widgets
+description: Library of widgets for all jamstation flutter apps
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  image_picker: ^0.4.10
+
+dev_dependencies:
+
+flutter:
+  uses-material-design: true
