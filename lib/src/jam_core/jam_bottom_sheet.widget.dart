@@ -59,7 +59,7 @@ class JamBottomSheet extends StatelessWidget {
             ///
             /// Body
             ///
-            Expanded(child: this.child),
+            Expanded(child: SingleChildScrollView(child: this.child)),
 
             ///
             /// Footer

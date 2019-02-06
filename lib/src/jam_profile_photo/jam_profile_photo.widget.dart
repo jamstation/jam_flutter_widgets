@@ -1,22 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'jam_profile_photo_bottom_bar.widget.dart';
+import 'jam_profile_photo_bottom_sheet.widget.dart';
 
-class JamProfilePhoto extends StatefulWidget {
-  const JamProfilePhoto({Key key}) : super(key: key);
+class JamProfilePhoto extends StatelessWidget {
+  final String photoUrl;
+  final Function(File photo) uploadPhoto;
+  final Function() removePhoto;
 
-  @override
-  _JamProfilePhotoState createState() => _JamProfilePhotoState();
-}
-
-class _JamProfilePhotoState extends State<JamProfilePhoto> {
-  File photo = File('/storage/emulated/0/Download/images (1).jpg');
-
-  void setPhoto(File newPhoto) {
-    setState(() {
-      this.photo = newPhoto;
-    });
-  }
+  const JamProfilePhoto({
+    Key key,
+    @required this.photoUrl,
+    @required this.uploadPhoto,
+    @required this.removePhoto,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +23,15 @@ class _JamProfilePhotoState extends State<JamProfilePhoto> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (BuildContext context) => JamProfilePhotoBottomBar(setPhoto: setPhoto),
+            builder: (context) => JamProfilePhotoBottomSheet(
+                  uploadPhoto: this.uploadPhoto,
+                  removePhoto: this.removePhoto,
+                ),
           );
         },
         highlightElevation: 20.0,
         child: CircleAvatar(
-          child: this.photo != null
+          child: this.photoUrl != null
               ? null
               : Icon(
                   Icons.account_circle,
@@ -41,7 +40,8 @@ class _JamProfilePhotoState extends State<JamProfilePhoto> {
                 ),
           radius: 100.0,
           backgroundColor: Colors.pink,
-          backgroundImage: this.photo == null ? null : FileImage(this.photo),
+          backgroundImage:
+              this.photoUrl == null ? null : NetworkImage(this.photoUrl),
         ),
       ),
     );

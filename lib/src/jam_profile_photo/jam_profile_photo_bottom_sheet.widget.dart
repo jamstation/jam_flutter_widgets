@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class JamProfilePhotoBottomBar extends StatelessWidget {
-  final Function setPhoto;
+class JamProfilePhotoBottomSheet extends StatelessWidget {
+  final Function(File photo) uploadPhoto;
+  final Function() removePhoto;
 
-  const JamProfilePhotoBottomBar({Key key, @required this.setPhoto})
-      : super(key: key);
+  const JamProfilePhotoBottomSheet({
+    Key key,
+    @required this.uploadPhoto,
+    @required this.removePhoto,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class JamProfilePhotoBottomBar extends StatelessWidget {
             onTap: () async {
               var newPhoto =
                   await ImagePicker.pickImage(source: ImageSource.gallery);
-              this.setPhoto(newPhoto);
+              this.uploadPhoto(newPhoto);
               Navigator.pop(context);
             },
           ),
@@ -39,7 +45,7 @@ class JamProfilePhotoBottomBar extends StatelessWidget {
             ),
             subtitle: Text('Resets to default icon'),
             onTap: () {
-              this.setPhoto(null);
+              this.removePhoto();
               Navigator.pop(context);
             },
           ),

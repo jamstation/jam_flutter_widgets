@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 class JamCard extends StatelessWidget {
   final String title;
   final Widget child;
+  final double borderRadius;
 
-  const JamCard({Key key, @required this.child, @required this.title})
-      : super(key: key);
+  const JamCard({
+    Key key,
+    @required this.child,
+    @required this.title,
+    this.borderRadius = 4.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(this.borderRadius),
         color: Colors.white,
         boxShadow: <BoxShadow>[
           BoxShadow(
